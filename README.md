@@ -7,4 +7,4 @@ Plugin to be use with the WordPress TimeStack web app: https://github.com/joehoy
 
 ## Requirements
 
-Any WordPress Persistant Object Caching
+Any WordPress Persistant Object Caching or PHP-APC
