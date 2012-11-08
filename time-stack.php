@@ -38,8 +38,7 @@ class HM_Time_Stack {
 	public static function set_data( $data ) {
 
 		if ( function_exists( 'apc_store' ) && apc_store( '__test', '123' ) ) {
-			error_log( 'setting data' );
-			return error_log( apc_store( '_hm_all_stacks', $data, 60 ) );
+			return apc_store( '_hm_all_stacks', $data, 60 );
 		} else {
 			return wp_cache_set( '_hm_all_stacks', $data, null, 60 );
 		}
