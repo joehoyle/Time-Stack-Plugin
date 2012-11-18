@@ -298,8 +298,6 @@ class HM_Time_Stack_Operation {
 		if ( ! defined( 'SAVEQUERIES' ) )
 			define( 'SAVEQUERIES', true );
 		
-		hm_log( 'start: ' . $this->id );
-		hm_log( $wpdb->queries );
 		$this->start_query_count = count( $wpdb->queries );
 	}
 	
