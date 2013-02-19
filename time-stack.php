@@ -119,11 +119,11 @@ class HM_Time_Stack {
 
 	}
 
-	public function end_operation( $id ) {
+	public function end_operation( $id, $vars = null ) {
 		if ( ! $this->stack )
 			return;
 
-		$this->stack->end_operation( $this->stack->get_child_operation_by_id( $id ) );
+		$this->stack->end_operation( $this->stack->get_child_operation_by_id( $id ), $vars );
 	}
 
 	public function add_event( $id, $label = '' ) {
@@ -288,7 +288,7 @@ class HM_Time_Stack_Operation {
 	public $start_query_count;
 	public $end_query_count;
 	public $query_count;
-	public $vars;
+	public $vars = array();
 	public $time;
 
 	public function __construct( $id, $label = '' ) {
@@ -353,22 +353,28 @@ class HM_Time_Stack_Operation {
 		}
 	}
 
-	public function end_operation( $operation ) {
-
+	public function end_operation( $operation, $vars = null ) {
+		hm_log( $vars );
 		if ( ! empty( $this->open_operation ) ) {
 
 			if ( $this->open_operation == $operation ) {
+				if ( $vars )
+					$this->open_operation->vars = array_merge( $this->open_operation->vars, $vars );
+
 				$this->open_operation->end();
 				$this->open_operation = null;
 			}
 			else {
-				$this->open_operation->end_operation( $operation );
+				$this->open_operation->end_operation( $operation, $vars );
 
 			}
 
 		}
 
 		if ( $operation === $this ) {
+
+			if ( $vars )
+				$this->vars = array_merge( $this->vars, $vars );
 
 			$this->end();
 
