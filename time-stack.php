@@ -354,7 +354,7 @@ class HM_Time_Stack_Operation {
 	}
 
 	public function end_operation( $operation, $vars = null ) {
-		hm_log( $vars );
+
 		if ( ! empty( $this->open_operation ) ) {
 
 			if ( $this->open_operation == $operation ) {
