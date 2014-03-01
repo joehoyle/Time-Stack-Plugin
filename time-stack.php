@@ -526,6 +526,7 @@ HM_Time_Stack::instance();
 // show persistant stacks
 if ( isset( $_GET['action'] ) && $_GET['action'] == 'hm_get_stacks' ) {
 
+    header('Content-Type: application/javascript');
     echo $_GET['jsoncallback'] . '(' . json_encode( HM_Time_Stack::get_data( true ) ) . ')';
     exit;
 }
