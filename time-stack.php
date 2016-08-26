@@ -25,8 +25,10 @@ class HM_Time_Stack {
 
 		if ( function_exists( 'apc_store' ) && apc_store( '__test', '123' ) ) {
 			$data = apc_fetch( '_hm_all_stacks' );
-		} else {
+		} elseif ( wp_using_ext_object_cache() ) {
 			$data = wp_cache_get( '_hm_all_stacks' );
+		} else {
+			$data = get_transient( '_hm_all_stacks' );
 		}
 
 		if ( $clear )
@@ -39,8 +41,10 @@ class HM_Time_Stack {
 
 		if ( function_exists( 'apc_store' ) && apc_store( '__test', '123' ) ) {
 			return apc_store( '_hm_all_stacks', $data, 60 );
-		} else {
+		} elseif ( wp_using_ext_object_cache() ) {
 			return wp_cache_set( '_hm_all_stacks', $data, null, 60 );
+		} else {
+			return set_transient( '_hm_all_stacks', $data, 60 );
 		}
 	}
 
